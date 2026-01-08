@@ -1,10 +1,11 @@
+import Hero from '@/components/Hero'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      HomePage
-    </div>
+    <main className='overflow-hidden'>
+       <Hero />
+    </main>
   )
 }
 
