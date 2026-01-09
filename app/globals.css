@@ -46,10 +46,16 @@
 }
 
 /* START: Hero styles */
+
 .hero {
-  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+  /* Added pt-28 to push everything down */
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto pt-24;
 }
 
+ /* .hero {
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-360 mx-auto pt-24;
+}
+*/
 .hero__title {
   @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
 }
