@@ -42,7 +42,7 @@
 }
 
 .custom-btn {
-  @apply flex flex-row relative justify-center items-center py-3 px-6 outline-none;
+  @apply flex justify-center items-center py-3 px-6 outline-none rounded-full;
 }
 
 /* START: Hero styles */
@@ -63,7 +63,7 @@
 }
 
 .hero__image {
-  @apply relative xl:w-full w-[90%] xl:h-full h-[590px] z-0;
+  @apply relative xl:w-full w-[90%] xl:h-full h-147.5 z-0;
 }
 
 .hero__image-overlay {
