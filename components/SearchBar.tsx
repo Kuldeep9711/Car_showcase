@@ -1,4 +1,4 @@
-"use client"
+   "use client"
 
 import { useState } from 'react'
 import SearchManufacturer from './SearchManufacturer'
@@ -21,3 +21,5 @@ const SearchBar = () => {
 }
 
 export default SearchBar
+
+

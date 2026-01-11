@@ -85,3 +85,20 @@
 .footer__link {
   @apply flex flex-col gap-6 text-base min-w-42.5;
 }
+
+/* for home */ 
+.home__filters {
+  @apply mt-12 w-full flex-between items-center flex-wrap gap-5;
+}
+
+.home__filter-container {
+  @apply flex justify-start flex-wrap items-center gap-2;
+}
+
+.searchbar {
+  @apply flex items-center justify-start max-sm:flex-col w-full relative max-w-3xl gap-4;
+}
+
+.search-manufacturer__input {
+  @apply w-full h-[48px] pl-12 py-3 bg-light-white rounded-l-full max-sm:rounded-full outline-none cursor-pointer text-sm;
+}
