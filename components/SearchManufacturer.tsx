@@ -1,10 +1,19 @@
+"use client"
+
 import { SearchManufacturerProps } from '@/types'
-import React from 'react'
+
+import { Combobox, ComboboxButton, Transition } from '@headlessui/react'
 
 const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps) => {
   return (
-     <div>
-       SearchManufacturer 
+     <div className='search-manufacturer'>
+       <Combobox>
+        <div className='relative w-full'>
+            <ComboboxButton className="absolute top-3.5">
+              
+              </ComboboxButton>  
+        </div>
+       </Combobox>
      </div>
   )
 }
