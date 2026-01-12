@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { manufacturers } from '@/constants'
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Transition } from '@headlessui/react'
 import { useState, Fragment } from 'react'
-import { relative } from 'path'
+
 
 const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps) => {
   const [query, setQuery] = useState('')
@@ -23,7 +23,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
   
   return (
      <div className='search-manufacturer'>
-       <Combobox>
+       <Combobox value={manufacturer}>
         <div className='relative w-full'>
             <ComboboxButton className="absolute top-3.5">
                  <Image 
@@ -50,7 +50,9 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                  leaveTo='opacity-0'
                  afterLeave={() => setQuery('')}
                  >
-                  <ComboboxOptions>
+                  <ComboboxOptions 
+                   // className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-50"
+                  >
                     {filteredManufacturer.length === 0 && query !== "" ? (
                       <ComboboxOption
                       value={query}
@@ -62,9 +64,10 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                       filteredManufacturer.map((item) => (
                          <ComboboxOption
                          key={item}
-                         className={({ focus }) => `relative search-manufacturer__option ${focus? 'bg-primary-blue text-white' : 'text-gray-900'}`}
-                         >
-
+                         className="relative search-manufacturer__option data-focus:bg-blue-600 data-focus:text-white text-gray-900"
+                        value={item}
+                        >
+                         {item}
                          </ComboboxOption>
                       ))
                     )}

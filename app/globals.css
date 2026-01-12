@@ -53,8 +53,13 @@ body {
 
 /* --- Hero Styles --- */
 .hero {
-  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-360 mx-auto pt-36;
+  /* Increase this value to push the 'Car Catalogue' down away from the top */
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-360 mx-auto pt-40; 
 }
+
+/*.hero {
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-360 mx-auto pt-36;
+}  */
 
 .hero__title {
   @apply 2xl:text-[72px] sm:text-[64px] text-[50px] font-extrabold;
@@ -83,7 +88,7 @@ body {
 
 .home__filters {
   /* Use direct utilities to avoid 'flex-between' unknown utility errors */
-  @apply mt-12 w-full flex justify-between items-center flex-wrap gap-5;
+  @apply mt-12 w-full flex justify-between items-center flex-wrap gap-5 relative z-20;
 }
 
 .home__filter-container {
