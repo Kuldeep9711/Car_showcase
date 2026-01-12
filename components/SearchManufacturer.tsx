@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { manufacturers } from '@/constants'
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Transition } from '@headlessui/react'
 import { useState, Fragment } from 'react'
+import { relative } from 'path'
 
 const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps) => {
   const [query, setQuery] = useState('')
@@ -35,7 +36,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
               </ComboboxButton>  
 
               <ComboboxInput 
-                 className="search-manufacturer__input"
+                 className="search-manufacturer__input pl-12"
                  placeholder='Volkswagen'
                  displayValue={(manufacturer: string) => 
                   manufacturer}
@@ -50,13 +51,22 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                  afterLeave={() => setQuery('')}
                  >
                   <ComboboxOptions>
-                    {filteredManufacturer.length === 0 && query !== "" && (
+                    {filteredManufacturer.length === 0 && query !== "" ? (
                       <ComboboxOption
                       value={query}
                       className="search-manufacturer__option"
                       >
                         Create "{query}"
                       </ComboboxOption>
+                    ): (
+                      filteredManufacturer.map((item) => (
+                         <ComboboxOption
+                         key={item}
+                         className={({ focus }) => `relative search-manufacturer__option ${focus? 'bg-primary-blue text-white' : 'text-gray-900'}`}
+                         >
+
+                         </ComboboxOption>
+                      ))
                     )}
                   </ComboboxOptions>
                  </Transition>
