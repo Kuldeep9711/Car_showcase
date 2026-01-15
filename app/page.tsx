@@ -27,7 +27,11 @@ export default async function Home({ searchParams }: HomeProps) {
     model: params.model || "",
   });
 
-
+    // ✅ ADD THE LOG HERE
+  console.log("--- API DEBUG START ---");
+  console.log("Cars Data:", allCars);
+  console.log("Is Array:", Array.isArray(allCars));
+  console.log("--- API DEBUG END ---");
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 

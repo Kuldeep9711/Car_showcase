@@ -1,6 +1,5 @@
 
-// Define the shape of the filters we expect
-export interface FilterProps {
+ export interface FilterProps {
   manufacturer?: string;
   year?: number;
   fuel?: string;
@@ -8,28 +7,28 @@ export interface FilterProps {
   model?: string;
 }
 
-export const fetchCars = async (filters: FilterProps) => {
-  const { manufacturer, year, fuel, limit, model } = filters;
 
-  // These credentials come from your RapidAPI screenshot
-  const API_KEY = 'n1cMUifZ5ch2OAZTDJSRzklQaTnJR0db91KUqFSr';
-  const API_HOST = 'cars-by-api-ninjas.p.rapidapi.com';
+export const fetchCars = async (filters: FilterProps) => {
+  const { manufacturer, year, fuel, model } = filters;
+
+  // ✅ Use the key from your latest screenshot
+  const API_KEY = 'n1cMUifZ5ch2OAZTDJSRzklQaTnJR0db91KUqFSr'; 
 
   const response = await fetch(
-   `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
-    
+    `https://api.api-ninjas.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&fuel_type=${fuel}`,
     {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': API_KEY,
-        'x-rapidapi-host': API_HOST,
+        'X-Api-Key': API_KEY, // ✅ Use the direct header name
       },
     }
   );
 
-    return await response.json();
-  
+  const result = await response.json();
+  return result;
 };
+
+
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
   const basePricePerDay = 50; // Base rental price per day in dollars
