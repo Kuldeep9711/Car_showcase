@@ -14,14 +14,14 @@ export interface SearchManufacturerProps {
 }
 
 export interface CarProps {
-    city_mpg:number;
+    city_mpg:number | string;
     class: string;
-    combination_mpg: number;
+    combination_mpg: number | string;
     cylinders: number;
     displacement:number;
     drive:string;
     fuel_type:string;
-    highway_mpg: number;
+    highway_mpg: number | string;
     make:string;
     model: string;
     transmission: string;

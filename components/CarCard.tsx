@@ -14,7 +14,10 @@ interface CarCardProps {
 const CarCard = ({ car}: CarCardProps) => {
     const { city_mpg, year, make, model, transmission, drive } = car;
 
-    const carRent = calculateCarRent(city_mpg, year)
+   // Check if city_mpg is a number. If it's a "premium" string, use 20 as a default.
+  const numericMpg = typeof city_mpg === 'number' ? city_mpg : 20;
+
+    const carRent = calculateCarRent(numericMpg, year)
 
   return (
     <div className="car-card group">
@@ -61,7 +64,7 @@ const CarCard = ({ car}: CarCardProps) => {
                <Image src="/gas.svg"
                width={20} height={20} alt="gas" />
                <p className='text-[14px]'>
-                 {city_mpg} MPG
+               {typeof city_mpg === 'number' ? `${city_mpg} MPG` : '20 MPG'}
                </p>
             </div>    
         </div>
