@@ -52,10 +52,36 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
   const url = new URL("https://cdn.imagin.studio/getimage");
   const { make, model, year } = car;
 
+  url.searchParams.append('customer', 'hrjavascript-mastery');
+  
+  // ✅ Force lowercase and trim any accidental spaces
+  url.searchParams.append('make', make.toLowerCase().trim());
+  
+  // ✅ Extract only the first word and lowercase it
+  // This turns "Corolla LE" into "corolla"
+  const modelFamily = model.split(" ")[0].toLowerCase().trim();
+  url.searchParams.append('modelFamily', modelFamily);
+  
+  url.searchParams.append('zoomType', 'fullscreen');
+  url.searchParams.append('modelYear', `${year}`);
+
+  if (angle) {
+    url.searchParams.append('angle', `${angle}`);
+  }
+
+  return url.toString();
+}
+
+/*
+export const generateCarImageUrl = (car: CarProps, angle?: string) => {
+  const url = new URL("https://cdn.imagin.studio/getimage");
+  const { make, model, year } = car;
+
   // ✅ Use the student/demo key here
   url.searchParams.append('customer', 'hrjavascript-mastery',);
   url.searchParams.append('make', make);
-  url.searchParams.append('modelFamily', model.split(" ")[0]);
+    const modelFamily = model.split(" ")[0].replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+     url.searchParams.append('modelFamily', modelFamily);
   url.searchParams.append('zoomType', 'fullscreen');
   url.searchParams.append('modelYear', `${year}`);
   
@@ -66,20 +92,4 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
 
   return `${url}`;
 }
-
-/*
-export const generateCarImageUrl = (car: CarProps, angle?: string) => {
-  const url = new 
-  URL("https://cdn.imagin.studio/getimage");
-  
-  const { make, model, year } = car;
-  
-  url.searchParams.append("customer", "img");
-  url.searchParams.append("make", make);
-  url.searchParams.append("modeFamily", model.split(" ")[0]);
-   url.searchParams.append("zoomtype", "fullscreen");
-    url.searchParams.append("modelYear", `${year}`);
-     url.searchParams.append("angle", `${angle}`)
-
-     return `${url}`;
-} */
+*/

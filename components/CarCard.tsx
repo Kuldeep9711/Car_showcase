@@ -5,7 +5,7 @@ import Image from "next/image"
 
 import { CarProps } from "@/types";
 import CustomButton from "./CustomButton";
-import { calculateCarRent } from "@/app/utils";
+import { calculateCarRent, generateCarImageUrl } from "@/app/utils";
 import { useState } from "react";
 import CarDetails from "./CarDetails";
 
@@ -22,6 +22,11 @@ const CarCard = ({ car}: CarCardProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
     const carRent = calculateCarRent(numericMpg, year)
+
+    const carImage = generateCarImageUrl(car);
+     // console.log("Car Image URL:", carImage); 
+
+     console.log(`Generating image for: ${car.make} ${car.model}`);
 
   return (
     <div className="car-card group">

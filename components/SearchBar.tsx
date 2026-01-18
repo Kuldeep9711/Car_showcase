@@ -1,4 +1,6 @@
-   "use client"
+
+  
+  "use client"
 
 import { useState } from 'react'
 import SearchManufacturer from './SearchManufacturer'
@@ -6,6 +8,7 @@ import { useRouter } from 'next/navigation';
 
 const SearchBar = () => {
     const [manufacturer, setManufacturer] = useState('');
+    const [model, setModel] = useState('');
      const router = useRouter();
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => { 
@@ -15,11 +18,15 @@ const SearchBar = () => {
          return alert("Please fill in the search bar")
       }
 
-      updateSearchParams(manufacturer.toLocaleLowerCase())
+      updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase())
    }
 
-   const updateSearchParams = (manufacturer: string) => {
+   const updateSearchParams = (manufacturer: string, model: string) => {
         const searchParams = new URLSearchParams(window.location.search);
+
+        if (model) searchParams.set('model', model);
+         else searchParams.delete('model');
+
 
         if (manufacturer) {
             searchParams.set('manufacturer', manufacturer);
@@ -28,7 +35,7 @@ const SearchBar = () => {
         }
 
         const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
-        router.push(newPathname, { scroll: false }); // ✅ This updates the page
+        router.push(newPathname, { scroll: false }); 
     }
 
   return (
@@ -38,13 +45,13 @@ const SearchBar = () => {
              manufacturer={manufacturer}
              setManufacturer={setManufacturer}
             />
-            {/* ✅ Add a search button so you can trigger handleSearch */}
-                <button type="submit" className="ml-3 z-10">Search</button>
+
+                <button type="submit" className="ml-3 z-10"></button>
          </div>
      </form>
   )
 }
 
-export default SearchBar
+export default SearchBar 
 
 
