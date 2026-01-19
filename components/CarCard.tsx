@@ -1,99 +1,255 @@
-"use client"
+/* "use client"
 
-
-import Image from "next/image"
-
+import Image from "next/image";
+import { Fragment } from "react/jsx-runtime";
 import { CarProps } from "@/types";
-import CustomButton from "./CustomButton";
-import { calculateCarRent, generateCarImageUrl } from "@/app/utils";
-import { useState } from "react";
-import CarDetails from "./CarDetails";
+import { Dialog, Transition, DialogPanel, TransitionChild } from "@headlessui/react";
 
-interface CarCardProps {
+
+interface CarDetailsProps {
+    isOpen: boolean;
+    closeModel: () => void;
     car: CarProps;
 }
 
-const CarCard = ({ car}: CarCardProps) => {
-    const { city_mpg, year, make, model, transmission, drive } = car;
-
-   // Check if city_mpg is a number. If it's a "premium" string, use 20 as a default.
-  const numericMpg = typeof city_mpg === 'number' ? city_mpg : 20;
-
-  const [isOpen, setIsOpen] = useState(false)
-
-    const carRent = calculateCarRent(numericMpg, year)
-
-    const carImage = generateCarImageUrl(car);
-     // console.log("Car Image URL:", carImage); 
-
-     console.log(`Generating image for: ${car.make} ${car.model}`);
-
+const CarDetails = ({ isOpen, closeModel, car}: CarDetailsProps) => {
   return (
-    <div className="car-card group">
-      <div className="car-card__content">
-       <h2 className="car-card__content-title">
-        {make} {model}
-       </h2>
-      </div>
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+         <Dialog as="div" className="relative z-10" onClose={closeModel}>
+            <TransitionChild
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+            >
+             <div className="fixed inset-0 bg-black bg-opacity-25" /> 
+             </TransitionChild>
+             <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                     <TransitionChild 
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+            >
+                <DialogPanel className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto transform rounded-2xl bg-white p-6 text-left shadow-xl transition-all flex flex-col gap-5">
+                    <button 
+                    type="button" 
+                    className="absolute top-2 right-2 z-10 w-fit p-2 bg-primary-blue-100 rounded-full"
+                    onClick={closeModel}
+                    >
+                        <Image 
+                         src="/close.svg"
+                         alt="close"
+                         width={20}
+                         height={20}
+                         className="object-contain"
+                        />
+                    </button>
+                    <div className="flex-1 flex flex-col gap-3">
+                       <div className="relative w-full h-40 bg-pattern bg-cover bg-center rounded-lg">
+                           <Image 
+                              src="/hero.png"
+                              alt="car"
+                              fill
+                              className="object-contain" />
+                       </div>
 
-      <p className="flex mt-6 text-[32px] font-extrabold">
-        <span className="self-start text-[14px] font-semibold">
-            $  
-        </span>
-         {carRent}
-           <span className="self-end text-[14px] font-medium">
-            /day
-        </span>
-      </p>
+                       <div className="flex gap-3">
+                           <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
+                             <Image 
+                              src='/hero.png'
+                              alt="car"
+                              fill
+                              className="object-contain"
+                             />
+                           </div>
+                            <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
+                             <Image 
+                              src='/hero.png'
+                              alt="car"
+                              fill
+                              className="object-contain"
+                             />
+                           </div>
+                            <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
+                             <Image 
+                              src='/hero.png'
+                              alt="car"
+                              fill
+                              className="object-contain"
+                             />
+                           </div>
+                       </div>
+                    </div>
 
-      <div className="relative w-full h-40 my-3">
-         <Image src="/hero.png" 
-         alt="car model"
-         fill
-         priority className="object-contain" />
-      </div>
-      
-      <div className="relative flex w-full mt-2">
-        <div className="flex group-hover:invisible w-full justify-between text-gray">
-           <div className="flex flex-col justify-center items-center gap-2">
-               <Image src="/steering-wheel.svg"
-               width={20} height={20} alt="steering wheel" />
-               <p className='text-[14px]'>
-                {transmission === 'a' ? 'Automatic' : 'Manual'}
-               </p>
-            </div>    
-             <div className="flex flex-col justify-center items-center gap-2">
-               <Image src="/tire.svg"
-               width={20} height={20} alt="tire" />
-               <p className='text-[14px]'>
-                 {drive.toUpperCase()}
-               </p>
-            </div>  
-             <div className="flex flex-col justify-center items-center gap-2">
-               <Image src="/gas.svg"
-               width={20} height={20} alt="gas" />
-               <p className='text-[14px]'>
-               {typeof city_mpg === 'number' ? `${city_mpg} MPG` : '20 MPG'}
-               </p>
-            </div>    
-        </div>
+                    <div className="flex-1 flex flex-col">
+                      <h2 className="font-semibold text-xl capitalize">
+                        {car.make} {car.model}
+                      </h2>
 
-     <div className="car-card__btn-container">
-       <CustomButton 
-        title="View More"
-        containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
-        textStyles="text-white text-[14px] leading-[17px] font-bold"
-        rightIcon="/right-arrow.svg"
-        handleClick={() => setIsOpen(true)}
-       />
-     </div>
-      </div>
-
-      <CarDetails  isOpen={isOpen} closeModel={() => 
-        setIsOpen(false)} car={car}
-        />
-    </div>
+                     <div className="mt-3 flex flex-wrap gap-4">
+                         {Object.entries(car).map(([key, value]) => (
+                             <div className="flex justify-between gap-5 w-full text-right"
+                             key={key}>
+                               <h4 className="text-grey capitalize">{key.split("_").join("_")}</h4>
+                                <p className='text-black-100 font-semibold'>
+                     
+                                 {typeof value === 'string' && value.includes('premium') ? 'N/A' : value}
+                                   </p>
+                                </div>
+                         ))}
+                     </div>
+                    </div>
+                </DialogPanel>
+                </TransitionChild>    
+                </div>
+             </div>
+         </Dialog>
+      </Transition>
+    </>
   )
 }
 
-export default CarCard
+export default CarDetails */
+
+
+"use client"
+
+import Image from "next/image";
+import { Fragment } from "react"; // Cleaned up import
+import { CarProps } from "@/types";
+import { Dialog, Transition, DialogPanel, TransitionChild } from "@headlessui/react";
+import { generateCarImageUrl } from "@/app/utils"; // ✅ Import your utility
+
+interface CarDetailsProps {
+    isOpen: boolean;
+    closeModel: () => void;
+    car: CarProps;
+}
+
+const CarDetails = ({ isOpen, closeModel, car}: CarDetailsProps) => {
+  return (
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+         <Dialog as="div" className="relative z-10" onClose={closeModel}>
+            <TransitionChild
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+             <div className="fixed inset-0 bg-black bg-opacity-25" /> 
+            </TransitionChild>
+
+            <div className="fixed inset-0 overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4 text-center">
+                  <TransitionChild 
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                  >
+                <DialogPanel className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto transform rounded-2xl bg-white p-6 text-left shadow-xl transition-all flex flex-col gap-5">
+                    <button 
+                      type="button" 
+                      className="absolute top-2 right-2 z-10 w-fit p-2 bg-primary-blue-100 rounded-full"
+                      onClick={closeModel}
+                    >
+                        <Image 
+                         src="/close.svg"
+                         alt="close"
+                         width={20}
+                         height={20}
+                         className="object-contain"
+                        />
+                    </button>
+
+                    <div className="flex-1 flex flex-col gap-3">
+                       {/* ✅ Main Image */}
+                       <div className="relative w-full h-40 bg-pattern bg-cover bg-center rounded-lg">
+                           <Image 
+                              src={generateCarImageUrl(car)} 
+                              alt="car"
+                              fill
+                              priority
+                              className="object-contain" />
+                       </div>
+
+                       <div className="flex gap-3">
+                           {/* ✅ Angle 29 (Side) */}
+                           <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
+                             <Image 
+                              src={generateCarImageUrl(car, '29')}
+                              alt="car"
+                              fill
+                              priority
+                              className="object-contain"
+                             />
+                           </div>
+                           {/* ✅ Angle 33 (Top/Front) */}
+                            <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
+                             <Image 
+                              src={generateCarImageUrl(car, '33')}
+                              alt="car"
+                              fill
+                              priority
+                              className="object-contain"
+                             />
+                           </div>
+                           {/* ✅ Angle 13 (Rear) */}
+                            <div className="flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg">
+                             <Image 
+                              src={generateCarImageUrl(car, '13')}
+                              alt="car"
+                              fill
+                              priority
+                              className="object-contain"
+                             />
+                           </div>
+                       </div>
+                    </div>
+
+                    <div className="flex-1 flex flex-col">
+                      <h2 className="font-semibold text-xl capitalize">
+                        {car.make} {car.model}
+                      </h2>
+
+                     <div className="mt-3 flex flex-wrap gap-4">
+                         {Object.entries(car).map(([key, value]) => (
+                             <div className="flex justify-between gap-5 w-full text-right" key={key}>
+                               <h4 className="text-grey capitalize">
+                                 {/* ✅ Cleaner Key names */}
+                                 {key.split("_").join(" ")}
+                               </h4>
+                               <p className='text-black-100 font-semibold'>
+                                 {typeof value === 'string' && value.includes('premium') ? 'N/A' : value}
+                               </p>
+                            </div>
+                         ))}
+                     </div>
+                    </div>
+                </DialogPanel>
+                </TransitionChild>    
+                </div>
+             </div>
+         </Dialog>
+      </Transition>
+    </>
+  )
+}
+
+export default CarDetails
