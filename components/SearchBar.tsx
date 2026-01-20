@@ -1,5 +1,70 @@
+"use client"
 
-  
+import { useState } from 'react'
+import SearchManufacturer from './SearchManufacturer'
+import { useRouter } from 'next/navigation';
+
+
+
+const SearchBar = () => {
+  const [manufacturer, setManufacturer] = useState('');
+  const [model, setModel] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (manufacturer === '' && model === '') {
+      return alert("Please fill in the search bar");
+    }
+
+    updateSearchParams(manufacturer.toLowerCase(), model.toLowerCase());
+  };
+
+  const updateSearchParams = (manufacturer: string, model: string) => {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    // Set or delete Model
+    if (model) searchParams.set('model', model);
+    else searchParams.delete('model');
+
+    // Set or delete Manufacturer
+    if (manufacturer) searchParams.set('manufacturer', manufacturer);
+    else searchParams.delete('manufacturer');
+
+    const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+    router.push(newPathname, { scroll: false });
+  };
+
+  return (
+    <form className='searchbar' onSubmit={handleSearch}>
+      <div className='searchbar__item'>
+        <SearchManufacturer
+          manufacturer={manufacturer}
+          setManufacturer={setManufacturer}
+        />
+      </div>
+      
+      <div className='searchbar__item'>
+        {/* ADD MODEL INPUT HERE */}
+        <input
+          type="text"
+          name="model"
+          value={model}
+          onChange={(e) => setModel(e.target.value)}
+          placeholder="Tiguan"
+          className="searchbar__input"
+        />
+      </div>
+      <button type="submit" className="custom-btn">Search</button>
+    </form>
+  );
+};
+
+
+export default SearchBar 
+
+  /*
   "use client"
 
 import { useState } from 'react'
@@ -52,7 +117,7 @@ const SearchBar = () => {
   )
 }
 
-export default SearchBar 
+export default SearchBar  */
 
 
   
