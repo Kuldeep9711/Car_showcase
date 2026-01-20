@@ -1,7 +1,8 @@
 
-  import { Hero, SearchBar, CustomFilters} from "@/components";
-  import CarCard from "@/components/CarCard";
+import { Hero, SearchBar, CustomFilters} from "@/components";
 import { fetchCars } from "@/app/utils"; 
+import { CarCard } from "@/components";
+
 
 // Define the type for the props, ensuring searchParams is a Promise
 interface HomeProps {
