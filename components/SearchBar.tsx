@@ -66,7 +66,7 @@ const SearchBar = () => {
           placeholder="Tiguan"
           className="searchbar__input"
         />
-        <SearchButton otherClasses="sm:hidden"/>
+      
       </div>
       <div className='searchbar__item'>
          <Image 
@@ -76,7 +76,9 @@ const SearchBar = () => {
          height={25}
          className='absolute w-[20px] h-[20px] ml-4'
          />
+           <SearchButton otherClasses="sm:hidden"/>
       </div>
+      <SearchButton otherClasses="max-sm:hidden"/>
     </form>
   );
 };

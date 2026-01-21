@@ -72,24 +72,3 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
   return url.toString();
 }
 
-/*
-export const generateCarImageUrl = (car: CarProps, angle?: string) => {
-  const url = new URL("https://cdn.imagin.studio/getimage");
-  const { make, model, year } = car;
-
-  // ✅ Use the student/demo key here
-  url.searchParams.append('customer', 'hrjavascript-mastery',);
-  url.searchParams.append('make', make);
-    const modelFamily = model.split(" ")[0].replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
-     url.searchParams.append('modelFamily', modelFamily);
-  url.searchParams.append('zoomType', 'fullscreen');
-  url.searchParams.append('modelYear', `${year}`);
-  
-  // If an angle is provided (like '29' or '33'), add it to the URL
-  if (angle) {
-    url.searchParams.append('angle', `${angle}`);
-  }
-
-  return `${url}`;
-}
-*/
