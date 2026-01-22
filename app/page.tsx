@@ -2,6 +2,7 @@
 import { Hero, SearchBar, CustomFilters} from "@/components";
 import { fetchCars } from "@/app/utils"; 
 import { CarCard } from "@/components";
+import { fuels, yearsOfProduction } from "@/constants";
 
 
 // Define the type for the props, ensuring searchParams is a Promise
@@ -50,8 +51,8 @@ export default async function Home({ searchParams }: HomeProps) {
           <SearchBar />
 
           <div className="home__filter-container">
-            <CustomFilters title="fuel" />
-            <CustomFilters title="year" />
+            <CustomFilters title="fuel" options={fuels} />
+            <CustomFilters title="year" options={yearsOfProduction} />
           </div>
         </div>
 
