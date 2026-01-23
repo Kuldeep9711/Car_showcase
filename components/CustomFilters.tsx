@@ -7,8 +7,34 @@ import { Listbox, Transition, ListboxButton, ListboxOption, ListboxOptions } fro
 import { CustomFilterProps } from "@/types"
 
 const CustomFilters = ({ title, options}: CustomFilterProps) => {
+  const router = useRouter()
   const [selected, setSelected] = useState(options[0]);
 
+   const handleUpdateParams = () => {
+    const newPathName = '';
+
+
+    const searchParams = new URLSearchParams(window.location.search);
+
+    // Set or delete Model
+    if (model) {
+       searchParams.set('model', model);
+    } else {
+      searchParams.delete('model');
+    }
+
+    // Set or delete Manufacturer
+    if (manufacturer) {
+      searchParams.set('manufacturer', manufacturer);
+    } else {
+      searchParams.delete('manufacturer');
+     }
+     
+    const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+ 
+
+    router.push(newPathName)
+   }
 
   return (
       <div className="w-fit">
