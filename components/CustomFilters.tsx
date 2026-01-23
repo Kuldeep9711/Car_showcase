@@ -5,33 +5,14 @@ import { Fragment, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Listbox, Transition, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
 import { CustomFilterProps } from "@/types"
+import { updateSearchParams } from "@/app/utils"
 
 const CustomFilters = ({ title, options}: CustomFilterProps) => {
   const router = useRouter()
   const [selected, setSelected] = useState(options[0]);
 
-   const handleUpdateParams = () => {
-    const newPathName = '';
-
-
-    const searchParams = new URLSearchParams(window.location.search);
-
-    // Set or delete Model
-    if (model) {
-       searchParams.set('model', model);
-    } else {
-      searchParams.delete('model');
-    }
-
-    // Set or delete Manufacturer
-    if (manufacturer) {
-      searchParams.set('manufacturer', manufacturer);
-    } else {
-      searchParams.delete('manufacturer');
-     }
-     
-    const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
- 
+   const handleUpdateParams = (e: { title: string, value: string }) => {
+    const newPathName = updateSearchParams(title, e.value.toLowerCase());
 
     router.push(newPathName)
    }
@@ -40,7 +21,9 @@ const CustomFilters = ({ title, options}: CustomFilterProps) => {
       <div className="w-fit">
          <Listbox 
          value={selected}
-         onChange={(e) => setSelected(e)}
+         onChange={(e) => { setSelected(e)
+          handleUpdateParams(e)
+         }}
          >
             <div className="relative w-fit z-10">
               <ListboxButton className="custom-filter__btn">
