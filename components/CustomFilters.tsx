@@ -29,7 +29,7 @@ const CustomFilters = ({ title, options}: CustomFilterProps) => {
               </ListboxButton>
               <Transition 
                  as={Fragment}
-                 leave="transition ease-in duration-100"
+                 leave="transiton ease-in duration-100"
                  leaveFrom="opacity-100"
                  leaveTo="opacity-0"
                  >
@@ -42,7 +42,8 @@ const CustomFilters = ({ title, options}: CustomFilterProps) => {
                   
                         >
                         {({ selected }) => (
-                          <span>
+                          <span className={`block truncate 
+                          ${selected ? 'font-medium' : 'font-normal'}`}>
                             {option.title}
                           </span>
                         )}
