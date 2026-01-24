@@ -1,5 +1,5 @@
 
-import { Hero, SearchBar, CustomFilters} from "@/components";
+import { Hero, SearchBar, CustomFilters, ShowMore} from "@/components";
 import { fetchCars } from "@/app/utils"; 
 import { CarCard } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
@@ -63,11 +63,17 @@ export default async function Home({ searchParams }: HomeProps) {
                 <CarCard key={`car-${index}`} car={car} />
               ))}
             </div>
+
+             <ShowMore 
+                pageNumber={(searchParams.pageNumber || 10) / 10}
+                isNext={(searchParams.limit || 10) > allCars.length}
+               />
+
           </section>
         ) : (
           <div className="home__error-container">
             <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-            <p>Try adjusting your search filters.</p>
+            <p>{allCars?.message}</p>
           </div>
         )}
       </div>
