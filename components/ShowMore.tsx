@@ -14,7 +14,7 @@ const ShowMore = ({ pageNumber, isNext}: ShowMoreProps) => {
     const newPathName = updateSearchParams("limit",)
    }
 
- console.log(handleNavigation)
+
 
   return (
     <div className="w-full flex-center gap-5 mt-10">
