@@ -14,6 +14,7 @@ const ShowMore = ({ pageNumber, isNext}: ShowMoreProps) => {
     const newPathName = updateSearchParams("limit",)
    }
 
+   console.log()
 
 
   return (
