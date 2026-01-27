@@ -9,7 +9,8 @@ import { CarProps } from "@/types";
 }
 
 
-export const fetchCars = async (filters: FilterProps) => {
+
+ export const fetchCars = async (filters: FilterProps) => {
   const { manufacturer, year, fuel, model } = filters;
 
   // ✅ Use the key from your latest screenshot
@@ -27,7 +28,7 @@ export const fetchCars = async (filters: FilterProps) => {
 
   const result = await response.json();
   return result;
-};
+}; 
 
 
 export const calculateCarRent = (city_mpg: any, year: number) => {
