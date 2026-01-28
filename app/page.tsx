@@ -1,8 +1,10 @@
+"use client"
 
 import { Hero, SearchBar, CustomFilters, ShowMore} from "@/components";
 import { fetchCars } from "@/app/utils"; 
 import { CarCard } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
+import { use, useEffect, useState } from "react";
 
 
 // Define the type for the props, ensuring searchParams is a Promise
@@ -16,26 +18,47 @@ interface HomeProps {
   }>;
 }
 
-export default async function Home({ searchParams }: HomeProps) {
-  // ✅ STEP 1: Await the searchParams promise to get the actual data
-  const params = await searchParams;
+export default  function Home() {
+  const [allCars, setAllCars] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  // search status
+  const [manufacturer, setManufacturer] = useState("")
+  const [model, setModel] = useState("");
 
-  // ✅ STEP 2: Use the unwrapped params to fetch cars
-  const allCars = await fetchCars({
-    manufacturer: params.manufacturer || "",
-    year: Number(params.year) || 2022,
-    fuel: params.fuel || "",
-    limit: Number(params.limit) || 10,
-    model: params.model || "",
-  });
+  // filter states
+  const[fuel, setFuel] = useState("");
+  const [year, setYear] = useState(202);
+ 
+ //pagination states
+ const[limit, setLimit] = useState(10);
 
-    // ✅ ADD THE LOG HERE
-  console.log("--- API DEBUG START ---");
-  console.log("Cars Data:", allCars);
-  console.log("Is Array:", Array.isArray(allCars));
-  console.log("--- API DEBUG END ---");
+ const getCars = async () => {
+  setLoading(true)
+  
+    try {
+       const result = await fetchCars({
+    manufacturer: manufacturer || '',
+    year: year || 2022,
+    fuel: fuel || '',
+    limit: limit || 10,
+    model: model || '',
+  })
+
+  setAllCars(result);
+    } catch (error) {
+        console.log(error)
+    } finally {
+        setLoading(false)
+    }
+  }
+
+ useEffect(() => {
+    getCars();
+ }, [fuel, year, limit, manufacturer, model])
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+
 
   return (
     <main className="overflow-hidden">
@@ -65,8 +88,8 @@ export default async function Home({ searchParams }: HomeProps) {
             </div>
 
              <ShowMore 
-                pageNumber={(params.limit || 10) / 10}
-                isNext={(params.limit || 10) > allCars.length}
+                pageNumber={Number(params.limit || 10) / 10}
+                isNext={Number(params.limit || 10) > allCars.length}
                />
 
           </section>
