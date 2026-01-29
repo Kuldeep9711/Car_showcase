@@ -42,7 +42,8 @@ export interface CarProps {
         options: OptionProps[];
     }
 
-    export interface ShowMoreProps {
-        pageNumber: number;
-        isNext: boolean;
-    }
+export interface ShowMoreProps {
+  pageNumber: number;
+  isNext: boolean;
+  setLimit: (limit: number) => void; 
+}
