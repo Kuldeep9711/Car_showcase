@@ -52,13 +52,13 @@ const SearchBar = ( {setManufacturer, setModel}: SearchBarProps ) => {
       </div>
       
     
-      <div className='searchbar__item'>
+      <div className='searchbar__item relative flex items-center'>
          <Image 
          src="/model-icon.png"
          alt="car model"
          width={25}
          height={25}
-         className='absolute w-5 h-5 ml-4'
+         className='absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none'
          />
 
           <input
