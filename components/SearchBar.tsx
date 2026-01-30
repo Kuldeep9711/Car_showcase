@@ -17,8 +17,14 @@ const SearchButton = ({ otherClasses }: { otherClasses: string}) => (
   </button>
 )
 
-const SearchBar = ( {setManufacturer, setModel} ) => {
-  const [searchmanufacturer, setSearchManufacturer] = useState('');
+interface SearchBarProps {
+  setManufacturer: (manufacturer: string) => void;
+  setModel: (model: string) => void;
+}
+
+
+const SearchBar = ( {setManufacturer, setModel}: SearchBarProps ) => {
+  const [searchmanufacturer, setSearchManufacturer] = useState<string | null>('');
   const [searchmodel, setSearchModel] = useState('');
   const router = useRouter();
 
@@ -30,12 +36,13 @@ const SearchBar = ( {setManufacturer, setModel} ) => {
     }
 
     setModel(searchmodel)
-    setManufacturer(searchmanufacturer)
+    setManufacturer(searchmanufacturer ?? "")
   };
 
   
 
-  return (
+ return (
+
     <form className='searchbar' onSubmit={handleSearch}>
       <div className='searchbar__item'>
         <SearchManufacturer
@@ -44,9 +51,17 @@ const SearchBar = ( {setManufacturer, setModel} ) => {
         />
       </div>
       
+    
       <div className='searchbar__item'>
-        {/* ADD MODEL INPUT HERE */}
-        <input
+         <Image 
+         src="/model-icon.png"
+         alt="car model"
+         width={25}
+         height={25}
+         className='absolute w-5 h-5 ml-4'
+         />
+
+          <input
           type="text"
           name="model"
           value={searchmodel}
@@ -54,24 +69,14 @@ const SearchBar = ( {setManufacturer, setModel} ) => {
           placeholder="Tiguan"
           className="searchbar__input"
         />
-      
-      </div>
-      <div className='searchbar__item'>
-         <Image 
-         src="/model-icon.png"
-         alt="car model"
-         width={25}
-         height={25}
-         className='absolute w-[20px] h-[20px] ml-4'
-         />
+
            <SearchButton otherClasses="sm:hidden"/>
       </div>
-      <SearchButton otherClasses="max-sm:hidden"/>
+        
+
     </form>
   );
 };
 
 
 export default SearchBar 
-
-  

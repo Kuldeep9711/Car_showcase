@@ -20,7 +20,7 @@ interface HomeProps {
 }
 
 export default  function Home() {
-  const [allCars, setAllCars] = useState([]);
+  const [allCars, setAllCars] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   
   // search states
@@ -117,7 +117,7 @@ console.log("API Result:", result);
         ) : (
           <div className="home__error-container">
             <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-            <p>{allCars?.message}</p>
+            <p>{(allCars as any)?.message}</p>
           </div>
         )}
       </div>

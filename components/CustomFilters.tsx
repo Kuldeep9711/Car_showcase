@@ -5,7 +5,7 @@ import { Fragment, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Listbox, Transition, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
 import { CustomFilterProps } from "@/types"
-import { updateSearchParams } from "@/app/utils"
+
 
 const CustomFilters = ({ title, options, setFilter}: 
   CustomFilterProps) => {
